@@ -1,0 +1,16 @@
+# Replace dash with undersore to follow BigQuery name requirements
+{% set DATASET = (env["deployment"] + "-dataset")|replace("-","_") %}
+{% set TABLE = (env["deployment"] + "-table")|replace("-","_") %}
+
+resources:
+- name: {{ DATASET }}
+  type: gcp-types/bigquery-v2:datasets
+  properties:
+    datasetReference:
+      datasetId: {{ DATASET }}
+- name: {{ TABLE }}
+  type: gcp-types/bigquery-v2:tables
+  properties:
+    datasetId: $(ref.{{ DATASET }}.datasetReference.datasetId)
+    tableReference:
+      tableId: {{ TABLE }}

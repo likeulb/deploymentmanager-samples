@@ -1,0 +1,7 @@
+imports:
+- path: bigquery.jinja
+
+resources:
+- name: bigquery
+  type: bigquery.jinja
+
